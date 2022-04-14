@@ -12,9 +12,9 @@ int main () {
 
 void Solution() {
 	int		n, t;
-	bool	arr = new bool[10001];
+	bool*	arr = new bool[10001];
 	
-	for (int i = 1; i < 10001; i++) {
+	for (int i = 2; i < 10001; i++) {
 		arr[i] = true;
 	}
 	
@@ -24,10 +24,27 @@ void Solution() {
 			arr[j] = false;
 		}
 	}
-	
-	for (int i = 0 i < n; i++) {
+	cin >> n;
+	for (int i = 0; i < n; i++) {
 		cin >> t;
-		
+		int tempL = 0;
+		int tempU = 0;
+		int l = t / 2;
+		int u = t / 2;
+		while (true) {
+			if (arr[l]) tempL = l;
+			else if (tempL == 0) l--;
+			if (arr[u]) tempU = u;
+			else if (tempU == 0) u++;
+			if (tempL != 0 && tempU != 0) {
+				if (tempL + tempU == t) break;
+				else {
+					if (tempL + tempU > t) l--;
+					if (tempL + tempU < t) u += 2;
+				}
+			}
+		}
+		cout << tempL << ' ' << tempU << endl;
 	}
 	
 	delete[] arr;
